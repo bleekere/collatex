@@ -161,7 +161,7 @@ public class EditGraphAligner {
                     // in het geval van token in witness B naar Y coordinates
                     .map(nodeToCoordinate::get)//
 
-                    // System.out.println("All the possible cell containing the scores of the options of this subst are: "+yCoordinatesWithScoresOfAddDels);
+                    // System.out.println("All the possible cells containing the scores of the options of this subst are: "+yCoordinatesWithScoresOfAddDels);
                     // now we have to find the maximum scoring cell of the possible cells..
                     // TODO; in the future we also have to set the parent coordinates correctly
                     // convert into scores;
@@ -223,7 +223,7 @@ public class EditGraphAligner {
                 .filter(ln -> !ln.isEmpty())//
                 .collect(toList());
         Collections.reverse(superwitness);// until there's a streaming .reverse()
-        superwitness = addRejectedChoices(superwitness);
+        superwitness = addRejectedChoices(superwitness); // for visualization purposes
         return groupNonMatchingTokensByWitness(superwitness);
     }
 
@@ -317,6 +317,9 @@ public class EditGraphAligner {
         // System.err.println("score=" + score);
         List<WitnessNode> nodes = new ArrayList<>();
         WitnessNode nodeA = this.labelsWitnessA.get(score.x - 1).text;
+        // Optional witnessNode B to avoid null pointer exceptions:
+        // if score of witnessNode B > 0; get the text of the label (or the score?)
+        // otherwise return an empty Optional
         Optional<WitnessNode> nodeB = score.y > 0 //
                 ? Optional.of(this.labelsWitnessB.get(score.y - 1).text)//
                 : Optional.empty();

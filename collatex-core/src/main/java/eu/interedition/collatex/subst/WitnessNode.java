@@ -18,6 +18,7 @@ import eu.interedition.collatex.simple.SimplePatternTokenizer;
  * Created by ronalddekker on 01/05/16.
  */
 public class WitnessNode {
+    // enum data type is enables for a variable to be a set of predefined constants
     enum Type {
         text, element
     }
